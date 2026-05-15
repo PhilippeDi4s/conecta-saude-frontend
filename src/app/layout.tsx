@@ -1,11 +1,21 @@
 import type { Metadata } from "next";
+import { Abel } from "next/font/google";
+
 import "./globals.css";
+
 import { Container } from "../Components/Container";
 import { ToastifyContainer } from "../Components/ToastifyContainer";
+import { Header } from "../Components/Header";
+
+const abel = Abel({
+  subsets: ["latin"],
+  weight: "400",
+  variable: "--font-abel",
+});
 
 export const metadata: Metadata = {
   title: {
-    template: "% | Conecta Saúde",
+    template: "%s | Conecta Saúde",
     default: "Conecta Saúde",
   },
   description:
@@ -19,7 +29,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-br">
-      <body>
+      <body className={abel.variable}>
+        <Header />
         <Container>{children}</Container>
         <ToastifyContainer />
       </body>

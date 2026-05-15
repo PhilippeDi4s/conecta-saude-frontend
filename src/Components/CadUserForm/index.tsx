@@ -1,14 +1,17 @@
 "use client";
 
 import {
+  CalendarIcon,
   ClipboardIcon,
+  IdCardIcon,
   LockIcon,
   MailIcon,
-  SendIcon,
+  PhoneIcon,
   UserIcon,
 } from "lucide-react";
 import styles from "../../styles/form.module.css";
 import { DefaultInput } from "../DefaultInput";
+import { MaskedInput } from "../MaskedInput";
 import clsx from "clsx";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { CadUserFields, cadUserSchema } from "@/src/lib/cadUserSchema";
@@ -20,6 +23,7 @@ export function CadUserForm() {
   const {
     register,
     handleSubmit,
+    control,
     formState: { errors, isSubmitting },
   } = useForm<CadUserFields>({
     resolver: zodResolver(cadUserSchema),
@@ -30,7 +34,7 @@ export function CadUserForm() {
     const result = await cadUserAction(data);
 
     if (!result.success) {
-      showMessage.error("Naõ foi possível realizar o cadastro");
+      showMessage.error("Não foi possível realizar o cadastro");
       return;
     }
 
@@ -53,7 +57,37 @@ export function CadUserForm() {
           label="Nome completo"
           placeholder="Digite seu nome completo"
           {...register("name")}
-          error={errors.name?.message as string}
+          error={errors.name?.message}
+        />
+        <MaskedInput
+          mask="00/00/0000"
+          name="dateOfBirth"
+          control={control}
+          id="dateOfBirth"
+          icon={CalendarIcon}
+          label="Data de nascimento"
+          placeholder="DD/MM/AAAA"
+          error={errors.dateOfBirth?.message}
+        />
+        <MaskedInput
+          mask="000.000.000-00"
+          name="cpf"
+          control={control}
+          id="cpf"
+          icon={IdCardIcon}
+          label="CPF"
+          placeholder="000.000.000-00"
+          error={errors.cpf?.message}
+        />
+        <MaskedInput
+          mask="(00) 00000-0000"
+          name="phone"
+          control={control}
+          id="phone"
+          icon={PhoneIcon}
+          label="Telefone"
+          placeholder="(00) 00000-0000"
+          error={errors.phone?.message}
         />
         <DefaultInput
           type="email"
@@ -62,7 +96,7 @@ export function CadUserForm() {
           label="E-mail"
           placeholder="email@exemplo.com"
           {...register("email")}
-          error={errors.email?.message as string}
+          error={errors.email?.message}
         />
         <DefaultInput
           type="password"
@@ -71,7 +105,7 @@ export function CadUserForm() {
           icon={LockIcon}
           placeholder="Crie sua senha"
           {...register("password")}
-          error={errors.password?.message as string}
+          error={errors.password?.message}
         />
         <DefaultInput
           type="password"
@@ -93,11 +127,13 @@ export function CadUserForm() {
             "justify-center",
             "gap-2",
             "rounded-2xl",
+            "font-bold",
             "bg-(--blue-400)",
+            "disabled:brightness-50",
           )}
+          disabled={isSubmitting}
         >
-          <SendIcon />
-          Cadastrar
+          {isSubmitting ? "Cadastrando" : "Cadastrar"}
         </button>
       </form>
     </section>

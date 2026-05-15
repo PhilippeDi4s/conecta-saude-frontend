@@ -1,15 +1,16 @@
 @import "tailwindcss";
 
 :root {
-  --blue-900: #03045E;
-  --blue-700: #0077B6;
-  --blue-500: #00B4D8;
-  --blue-400: #00CCF5;
-  --blue-200: #B7EBF6;
-  --blue-100: #EDFAFD;
+  --blue-900: #03045e;
+  --blue-700: #0077b6;
+  --blue-500: #00b4d8;
+  --blue-400: #00ccf5;
+  --blue-200: #b7ebf6;
+  --blue-100: #edfafd;
+
+  --font-abel: var(--font-abel);
 }
 
-body{
+body {
   background-color: var(--blue-100);
 }
-

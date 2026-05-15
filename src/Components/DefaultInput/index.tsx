@@ -50,8 +50,8 @@ export const DefaultInput = forwardRef<HTMLInputElement, DefaultInputProps>(
             </button>
           )}
           {error && (
-            <span className="flex items-center gap-2 text-red-600 text-[1rem]">
-              <CircleAlertIcon size={20} /> {error}
+            <span className={styles.error}>
+              <CircleAlertIcon/> {error}
             </span>
           )}
         </div>
