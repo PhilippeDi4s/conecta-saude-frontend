@@ -1,0 +1,17 @@
+.container{
+    width: 100%;
+    max-width: 40rem;
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    margin: 0 auto;
+    padding: 1rem;
+    border-radius: 12px;
+    background-color: var(--blue-200);
+}
+
+@media (min-width: 768px) {
+  .container{
+    padding: 3rem;
+  }
+}
