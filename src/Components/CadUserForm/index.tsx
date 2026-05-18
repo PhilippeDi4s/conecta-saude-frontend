@@ -14,7 +14,7 @@ import { DefaultInput } from "../DefaultInput";
 import { MaskedInput } from "../MaskedInput";
 import clsx from "clsx";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { CadUserFields, cadUserSchema } from "@/src/lib/cadUserSchema";
+import { CadUserFields, cadUserSchema } from "@/src/lib/schema/cadUserSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { cadUserAction } from "@/src/app/actions/cadUserAction";
 import { showMessage } from "@/src/adapters";
@@ -35,7 +35,8 @@ export function CadUserForm() {
     const result = await cadUserAction(data);
 
     if (!result.success) {
-      showMessage.error("Não foi possível realizar o cadastro");
+      showMessage.error(result.message);
+      console.log(result.errors)
       return;
     }
 

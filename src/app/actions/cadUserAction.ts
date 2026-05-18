@@ -1,6 +1,9 @@
 "use server";
 
-import { CadUserFields, cadUserSchema } from "@/src/lib/cadUserSchema";
+import { createLoginSession } from "@/src/lib/login/manage-login";
+import { CadUserFields, cadUserSchema } from "@/src/lib/schema/cadUserSchema";
+import { Paciente } from "@/src/models/paciente";
+import api from "@/src/services/api/api";
 import { redirect } from "next/navigation";
 
 export async function cadUserAction(data: CadUserFields) {
@@ -14,9 +17,26 @@ export async function cadUserAction(data: CadUserFields) {
     };
   }
 
-  return {
-    success: true,
-    message: "Cadastro feito com sucesso",
-  };
-  redirect(`/`)
+  let response;
+  try {
+    response = await api.post<Paciente>("/pacientes/cadastro", {
+      nome: zodResult.data.name,
+      email: zodResult.data.email,
+      senha: zodResult.data.password,
+    });
+  } catch (error) {
+    console.error("Erro na requisição:", error);
+    return {
+      success: false,
+      message: "Erro ao conectar com o servidor. Tente novamente.",
+    };
+  }
+
+  await createLoginSession(
+    response.data.id,
+    response.data.nome,
+    response.data.email,
+  );
+
+  redirect("/");
 }

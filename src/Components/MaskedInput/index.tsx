@@ -1,6 +1,6 @@
 import { IMaskInput } from "react-imask";
 import { Controller, Control } from "react-hook-form";
-import { CadUserFields } from "@/src/lib/cadUserSchema";
+import { CadUserFields } from "@/src/lib/schema/cadUserSchema";
 import styles from "../../styles/input.module.css";
 import { LucideIcon, CircleAlertIcon } from "lucide-react";
 
