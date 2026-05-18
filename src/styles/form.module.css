@@ -7,7 +7,7 @@
     margin: 0 auto;
     padding: 1rem;
     border-radius: 12px;
-    background-color: var(--blue-200);
+    border: 2px solid var(--blue-600);
 }
 
 @media (min-width: 768px) {

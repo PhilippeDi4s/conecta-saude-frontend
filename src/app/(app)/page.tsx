@@ -1,6 +1,8 @@
 "use client";
-import { Section } from "../Components/Section";
-import { CalendarStrip } from "../Components/agendaComponents/CalendarStrip";
+
+import { CalendarStrip } from "@/src/Components/agendaComponents/CalendarStrip";
+import { Section } from "@/src/Components/Section";
+
 
 export default function Agenda() {
 

@@ -129,7 +129,8 @@ export function CadUserForm() {
             "gap-2",
             "rounded-2xl",
             "font-bold",
-            "bg-(--blue-400)",
+            "text-white",
+            "bg-(--blue-800)",
             "disabled:brightness-50",
           )}
           disabled={isSubmitting}
