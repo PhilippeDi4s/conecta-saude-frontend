@@ -18,6 +18,7 @@ import { CadUserFields, cadUserSchema } from "@/src/lib/cadUserSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { cadUserAction } from "@/src/app/actions/cadUserAction";
 import { showMessage } from "@/src/adapters";
+import { Section } from "../Section";
 
 export function CadUserForm() {
   const {
@@ -44,7 +45,7 @@ export function CadUserForm() {
   };
 
   return (
-    <section className="mt-2">
+    <Section className="mt-2">
       <form className={styles.container} onSubmit={handleSubmit(onSubmit)}>
         <h1 className="font-bold text-xl md:text-2xl w-fit mx-auto text-black/70 flex items-center gap-1">
           Cadastrar-se
@@ -136,6 +137,6 @@ export function CadUserForm() {
           {isSubmitting ? "Cadastrando" : "Cadastrar"}
         </button>
       </form>
-    </section>
+    </Section>
   );
 }

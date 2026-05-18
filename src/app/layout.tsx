@@ -6,6 +6,7 @@ import "./globals.css";
 import { Container } from "../Components/Container";
 import { ToastifyContainer } from "../Components/ToastifyContainer";
 import { Header } from "../Components/Header";
+import { BottomBar } from "../Components/BottomBar";
 
 const abel = Abel({
   subsets: ["latin"],
@@ -33,6 +34,7 @@ export default function RootLayout({
         <Header />
         <Container>{children}</Container>
         <ToastifyContainer />
+        <BottomBar/>
       </body>
     </html>
   );

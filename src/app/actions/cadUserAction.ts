@@ -1,6 +1,7 @@
 "use server";
 
 import { CadUserFields, cadUserSchema } from "@/src/lib/cadUserSchema";
+import { redirect } from "next/navigation";
 
 export async function cadUserAction(data: CadUserFields) {
   const zodResult = cadUserSchema.safeParse(data);
@@ -9,11 +10,13 @@ export async function cadUserAction(data: CadUserFields) {
     return {
       success: false,
       message: "Verifique os campos e tente novamente.",
-      errors: zodResult.error.issues
+      errors: zodResult.error.issues,
     };
   }
-  return{
+
+  return {
     success: true,
-    message: "Cadastro feito com sucesso"
-  }
+    message: "Cadastro feito com sucesso",
+  };
+  redirect(`/`)
 }
