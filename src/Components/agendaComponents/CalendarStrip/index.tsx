@@ -1,27 +1,22 @@
 "use client";
 
 import { generateDayOfTheMonth } from "@/src/utils/generateDayOfTheMonth";
+import { getMonths } from "@/src/utils/getMonths";
 import { CalendarIcon } from "lucide-react";
 import { useState, useRef, useEffect, useMemo } from "react";
 
-const MONTHS = Array.from({ length: 12 }, (_, i) => {
-  const name = new Date(2000, i).toLocaleString("pt-BR", { month: "long" });
-  return {
-    value: i,
-    label: name.charAt(0).toUpperCase() + name.slice(1),
-  };
-});
+
+const months = getMonths()
 
 const YEARS = [2026, 2027, 2028];
 
 export function CalendarStrip() {
-  const today = useMemo(() => new Date(), []);
+  const { day, month, year } = useToday();
 
-  const [selectedDay, setSelectedDay] = useState<number>(today.getDate());
-  const [selectedMonth, setSelectedMonth] = useState<number>(today.getMonth());
-  const [selectedYear, setSelectedYear] = useState<number>(today.getFullYear());
+  const [selectedDay, setSelectedDay] = useState<number>(day);
+  const [selectedMonth, setSelectedMonth] = useState<number>(month);
+  const [selectedYear, setSelectedYear] = useState<number>(year);
   const [showPicker, setShowPicker] = useState<boolean>(false);
-
   const scrollRef = useRef<HTMLDivElement>(null);
   const buttonsRef = useRef<(HTMLButtonElement | null)[]>([]);
 
@@ -74,8 +69,8 @@ export function CalendarStrip() {
   }, [selectedDay]);
 
   useEffect(() => {
-    scrollToDay(today.getDate());
-  }, [today]);
+    scrollToDay(day.getDate());
+  }, [day]);
 
   return (
     <div className="flex flex-col gap-4">
@@ -102,7 +97,7 @@ export function CalendarStrip() {
             onChange={(e) => handleMonthChange(Number(e.target.value))}
             className="border border-black/20 rounded-lg px-2 py-1 text-sm bg-white"
           >
-            {MONTHS.map(({ value, label }) => (
+            {months.map(({ value, label }) => (
               <option key={value} value={value}>
                 {label}
               </option>
