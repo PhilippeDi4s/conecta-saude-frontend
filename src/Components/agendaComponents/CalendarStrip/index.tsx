@@ -1,5 +1,6 @@
 "use client";
 
+import { useToday } from "@/src/hooks/useToday";
 import { generateDayOfTheMonth } from "@/src/utils/generateDayOfTheMonth";
 import { getMonths } from "@/src/utils/getMonths";
 import { CalendarIcon } from "lucide-react";
@@ -69,7 +70,7 @@ export function CalendarStrip() {
   }, [selectedDay]);
 
   useEffect(() => {
-    scrollToDay(day.getDate());
+    scrollToDay(day);
   }, [day]);
 
   return (
