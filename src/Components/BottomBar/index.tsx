@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export function BottomBar() {
   const linkStyles = "flex flex-col items-center gap-1";
-  const selectedLinkStyles = "text-(--blue-500) font-semibold"; 
+  const selectedLinkStyles = "text-(--blue-500) font-bold"; 
 
   return (
     <nav className="flex justify-between items-center bg-(--blue-800) text-white/80 p-2 relative">
@@ -13,7 +13,7 @@ export function BottomBar() {
       </Link>
 
       <Link
-        href="#"
+        href="/bookAppointment"
         className="
           flex
           flex-col
@@ -26,13 +26,13 @@ export function BottomBar() {
       >
         <PlusIcon
           size={50}
-          className="bg-(--blue-600) rounded-full p-2 text-white"
+          className="bg-(--blue-600) rounded-full p-2 text-white "
         />
 
         <span>Agendar</span>
       </Link>
 
-      <Link href="/agenda" className={`${linkStyles}`}>
+      <Link href="/" className={`${linkStyles}`}>
         <Calendar1Icon />
         Agenda
       </Link>

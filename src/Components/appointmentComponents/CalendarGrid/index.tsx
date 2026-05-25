@@ -5,7 +5,7 @@ import { getMonths } from "@/src/utils/getMonths";
 import { useState } from "react";
 import { useMemo } from "react";
 import { generateDayOfTheMonth } from "@/src/utils/generateDayOfTheMonth";
-import { Section } from "../Section";
+import { Section } from "../../Section";
 import clsx from "clsx";
 
 const months = getMonths();
@@ -55,7 +55,7 @@ export function CalendarGrid() {
     }
     return true;
   }
-  
+
   function isNextMonthBtnDisabled(): boolean {
     if (selectedMonth > month + 2) {
       return true;

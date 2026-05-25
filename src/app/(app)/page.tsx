@@ -32,7 +32,7 @@ export default async function Agenda() {
 
   return (
     <Section className="flex flex-col gap-6">
-      <AgendaView agendamentos={agendamentos}/>
+      <AgendaView agendamentos={agendamentos} />
     </Section>
   );
 }

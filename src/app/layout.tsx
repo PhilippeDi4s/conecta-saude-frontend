@@ -5,6 +5,8 @@ import "./globals.css";
 
 import { ToastifyContainer } from "../Components/ToastifyContainer";
 import { Container } from "../Components/Container";
+import { Header } from "../Components/Header";
+import { BottomBar } from "../Components/BottomBar";
 
 const abel = Abel({
   subsets: ["latin"],
@@ -30,7 +32,9 @@ export default function RootLayout({
   return (
     <html lang="pt-br">
       <body className={abel.variable}>
+        <Header/>
         <Container>{children}</Container>
+        <BottomBar/>
         <ToastifyContainer />
       </body>
     </html>

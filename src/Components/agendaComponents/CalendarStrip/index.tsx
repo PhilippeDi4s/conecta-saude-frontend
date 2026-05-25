@@ -6,6 +6,7 @@ import { generateDayOfTheMonth } from "@/src/utils/generateDayOfTheMonth";
 import { getMonths } from "@/src/utils/getMonths";
 import { CalendarIcon } from "lucide-react";
 import { useState, useRef, useEffect, useMemo } from "react";
+import { HorizontalStrip } from "../../HorizontalStrip";
 
 const months = getMonths();
 
@@ -146,43 +147,18 @@ export function CalendarStrip({ onDateChange }: CalendarStripProps) {
         </div>
       )}
 
-      <div
-        ref={scrollRef}
-        className="w-full flex gap-3 overflow-x-auto pb-1 scrollbar-none"
-      >
-        {days.map(({ numero, diaSemana }) => {
-          const isSelected = selectedDay === numero;
-
-          return (
-            <button
-              key={numero}
-              ref={(el) => {
-                buttonsRef.current[numero - 1] = el;
-              }}
-              onClick={() => selectDay(numero)}
-              className={`
-                ${
-                  day > numero &&
-                  selectedMonth === month &&
-                  selectedYear === year &&
-                  "hidden"
-                }
-                ${
-                  isSelected
-                    ? "cursor-pointer text-white bg-(--blue-800) px-3 py-1 rounded-2xl shrink-0"
-                    : "cursor-pointer border border-black/70 rounded-full px-3 py-1 shrink-0 hover:bg-black/5 transition-colors"
-                }`}
-            >
-              {numero}
-              {isSelected && (
-                <>
-                  , <span className="text-white/60">{diaSemana}</span>
-                </>
-              )}
-            </button>
-          );
-        })}
-      </div>
+      <HorizontalStrip
+        items={days.map(({ numero, diaSemana }) => ({
+          id: numero,
+          label: String(numero),
+          sublabel: diaSemana,
+        }))}
+        selectedId={selectedDay}
+        onSelect={selectDay}
+        hideItem={(item) =>
+          item.id < day && selectedMonth === month && selectedYear === year
+        }
+      />
     </div>
   );
 }

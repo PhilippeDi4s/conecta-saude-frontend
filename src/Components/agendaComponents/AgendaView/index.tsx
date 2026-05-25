@@ -1,11 +1,11 @@
 "use client";
 
 import { useState } from "react";
-import { CalendarStrip } from "./CalendarStrip";
-import { AgendaList } from "./AgendaList";
+import { CalendarStrip } from "../CalendarStrip";
+import { AgendaList } from "../AgendaList";
 import { Agendamento } from "@/src/models/agendamento";
 import { formatDateToString } from "@/src/utils/formatDateToString";
-import { AppointmentCard } from "./AppointmentCard";
+import { AppointmentCard } from "../AppointmentCard";
 
 type Props = {
   agendamentos: Agendamento[];

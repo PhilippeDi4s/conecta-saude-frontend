@@ -1,7 +1,5 @@
-import { CalendarGrid } from "@/src/Components/CalendarGrid";
+import { DoctorsView } from "@/src/Components/appointmentComponents/DoctorsView";
 
-export default function BookAppointment(){
-    return(
-        <CalendarGrid/>
-    )
+export default async function BookAppointment() {
+  return <DoctorsView />;
 }
