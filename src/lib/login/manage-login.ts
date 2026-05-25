@@ -12,7 +12,6 @@ type JwtPayload = {
   id: number;
   username: string;
   useremail: string;
-  expiresAt: Date;
 };
 
 export async function createLoginSession(
@@ -21,7 +20,7 @@ export async function createLoginSession(
   useremail: string,
 ) {
   const expiresAt = new Date(Date.now() + loginExpSeconds * 1000);
-  const loginSession = await signJwt({ id, username, useremail, expiresAt });
+  const loginSession = await signJwt({ id, username, useremail });
   const cookieStore = await cookies();
 
   cookieStore.set(loginCookieName, loginSession, {

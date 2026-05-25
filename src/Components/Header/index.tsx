@@ -13,10 +13,12 @@ export function Header() {
         </span>
 
         <Image
+        className="w-auto h-auto"
           src="/logo.svg"
           alt="Conecta Saúde logo"
           width={50}
           height={50}
+          loading="eager"
         />
 
         <span className={`${logoStyle} w-28 text-left`}>

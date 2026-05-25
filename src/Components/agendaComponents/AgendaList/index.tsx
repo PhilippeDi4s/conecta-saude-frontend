@@ -1,4 +1,5 @@
 import { Agendamento } from "@/src/models/agendamento";
+import { AppointmentCard } from "../AppointmentCard";
 
 type AgendaListProps = {
   agendamentos: Agendamento[];
@@ -29,9 +30,9 @@ export function AgendaList({ agendamentos }: AgendaListProps) {
   return (
     <ul className="flex flex-col gap-6">
       {agendamentos.map((agendamento) => (
-        <li
+        <AppointmentCard
+          as="li"
           key={agendamento.id}
-          className="w-full flex flex-col gap-1 p-4 shadow-[0px_2px_8px_.5px_rgba(0,0,0,0.28)] rounded-2xl"
         >
           <h3 className="font-semibold">Doutor(a) {agendamento.medico.nome}</h3>
           <p className="mb-2 text-[15px] text-black/80">
@@ -49,7 +50,7 @@ export function AgendaList({ agendamentos }: AgendaListProps) {
               {agendamento.status}
             </span>
           </div>
-        </li>
+        </AppointmentCard>
       ))}
     </ul>
   );

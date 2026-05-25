@@ -5,6 +5,7 @@ import { getLoginSession } from "@/src/lib/login/manage-login";
 import { Agendamento } from "@/src/models/agendamento";
 import api from "@/src/services/api/api";
 import { redirect } from "next/navigation";
+import { AgendaView } from "@/src/Components/agendaComponents/AgendaView";
 
 type SessionPayload = {
   id: number;
@@ -31,8 +32,7 @@ export default async function Agenda() {
 
   return (
     <Section className="flex flex-col gap-6">
-      <CalendarStrip />
-      <AgendaList agendamentos={agendamentos} />
+      <AgendaView agendamentos={agendamentos}/>
     </Section>
   );
 }

@@ -55,6 +55,7 @@ export function CalendarGrid() {
     }
     return true;
   }
+  
   function isNextMonthBtnDisabled(): boolean {
     if (selectedMonth > month + 2) {
       return true;
@@ -83,7 +84,6 @@ export function CalendarGrid() {
     } else {
       setSelectedDay(1);
     }
-    console.log(selectedDay)
   }
   const buttonStyle =
     "cursor-pointer disabled:opacity-50 disabled:cursor-default";
