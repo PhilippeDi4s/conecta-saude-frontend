@@ -32,9 +32,7 @@ export default function RootLayout({
   return (
     <html lang="pt-br">
       <body className={abel.variable}>
-        <Header/>
-        <Container>{children}</Container>
-        <BottomBar/>
+        {children}
         <ToastifyContainer />
       </body>
     </html>

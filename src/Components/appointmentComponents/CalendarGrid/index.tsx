@@ -7,15 +7,40 @@ import { useMemo } from "react";
 import { generateDayOfTheMonth } from "@/src/utils/generateDayOfTheMonth";
 import { Section } from "../../Section";
 import clsx from "clsx";
+import { Disponibilidade } from "@/src/models/disponibilidade";
 
 const months = getMonths();
 
-export function CalendarGrid() {
+// Mapeia o número do getDay() para o nome que vem da API
+const diaSemanaMap: Record<number, string> = {
+  0: "DOMINGO",
+  1: "SEGUNDA",
+  2: "TERCA",
+  3: "QUARTA",
+  4: "QUINTA",
+  5: "SEXTA",
+  6: "SABADO",
+};
+
+interface CalendarGridProps {
+  disponibilidades: Disponibilidade[];
+  onSelect: (data: string) => void; // formato: "2026-06-10"
+}
+
+export function CalendarGrid({
+  disponibilidades,
+  onSelect,
+}: CalendarGridProps) {
   const { day, month, year } = useToday();
 
   const [selectedDay, setSelectedDay] = useState<number>(day);
   const [selectedMonth, setSelectedMonth] = useState<number>(month);
   const [selectedYear, setSelectedYear] = useState<number>(year);
+
+  const diasDisponiveis = useMemo(
+    () => new Set(disponibilidades.map((d) => d.diaSemana)),
+    [disponibilidades],
+  );
 
   const days = useMemo(
     () => generateDayOfTheMonth(selectedMonth, selectedYear),
@@ -25,11 +50,7 @@ export function CalendarGrid() {
   const firstDayOfMonth = new Date(selectedYear, selectedMonth, 1).getDay();
 
   const weeks = useMemo(() => {
-    const cells = [
-      ...Array(firstDayOfMonth).fill(null), // células vazias antes do dia 1
-      ...days,
-    ];
-
+    const cells = [...Array(firstDayOfMonth).fill(null), ...days];
     const result = [];
     for (let i = 0; i < cells.length; i += 7) {
       result.push(cells.slice(i, i + 7));
@@ -37,15 +58,27 @@ export function CalendarGrid() {
     return result;
   }, [days, firstDayOfMonth]);
 
-  function isDayBtnDisabled(CalendarDay: number): boolean {
-    if (selectedYear > year) {
-      return false;
+  function isDayBtnDisabled(calendarDay: number): boolean {
+    // Bloqueia dias que o médico não atende
+    const date = new Date(selectedYear, selectedMonth, calendarDay);
+    const diaSemana = diaSemanaMap[date.getDay()];
+    if (!diasDisponiveis.has(diaSemana)) return true;
+
+    // Bloqueia dias passados
+    if (selectedYear === year && selectedMonth === month && calendarDay < day) {
+      return true;
     }
-    if (selectedMonth === month) {
-      return CalendarDay < day;
-    }
+
     return false;
   }
+
+  function handleDaySelect(numero: number) {
+    setSelectedDay(numero);
+
+    const dataFormatada = `${selectedYear}-${String(selectedMonth + 1).padStart(2, "0")}-${String(numero).padStart(2, "0")}`;
+    onSelect(dataFormatada);
+  }
+
   function isBackMonthBtnDisabled(): boolean {
     if (selectedYear > year) {
       return false;
@@ -92,7 +125,7 @@ export function CalendarGrid() {
     <Section>
       <div className="w-full flex items-center justify-between">
         <button
-          className={`${buttonStyle}`}
+          className={buttonStyle}
           onClick={() => handleMonthChange(selectedMonth - 1)}
           disabled={isBackMonthBtnDisabled()}
         >
@@ -102,7 +135,7 @@ export function CalendarGrid() {
           {months[selectedMonth]?.label ?? ""}, {selectedYear}
         </span>
         <button
-          className={`${buttonStyle}`}
+          className={buttonStyle}
           onClick={() => handleMonthChange(selectedMonth + 1)}
           disabled={isNextMonthBtnDisabled()}
         >
@@ -127,28 +160,18 @@ export function CalendarGrid() {
             <tr key={weekIndex}>
               {week.map((day, dayIndex) => {
                 const isSelected = day?.numero === selectedDay;
-
                 return (
                   <td key={dayIndex}>
                     {day && (
                       <button
                         className={clsx(
-                          "cursor-pointer",
-                          "w-8",
-                          "h-8",
-                          "mx-auto",
-                          "flex",
-                          "items-center",
-                          "justify-center",
-                          "rounded-[50%]",
-                          "p-[.2rem]",
-                          "disabled:bg-[#e4eaef]",
-                          "disabled:text-gray-400",
-                          "disabled:border-black/30",
-                          "disabled:cursor-default",
-                          `${isSelected ? "bg-(--blue-800) text-white" : "border border-(--blue-800) bg-transparent"}`,
+                          "cursor-pointer w-8 h-8 mx-auto flex items-center justify-center rounded-[50%] p-[.2rem]",
+                          "disabled:bg-[#e4eaef] disabled:text-gray-400 disabled:border-black/30 disabled:cursor-default",
+                          isSelected
+                            ? "bg-(--blue-800) text-white"
+                            : "border border-(--blue-800) bg-transparent",
                         )}
-                        onClick={() => setSelectedDay(day.numero)}
+                        onClick={() => handleDaySelect(day.numero)}
                         disabled={isDayBtnDisabled(day.numero)}
                       >
                         {day.numero}

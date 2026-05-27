@@ -1,5 +1,8 @@
-import { DoctorsView } from "@/src/Components/appointmentComponents/DoctorsView";
+import { AppointmentFlow } from "@/src/Components/appointmentComponents/AppointmentFlow";
+import { requireSession } from "@/src/lib/login/require-session";
 
 export default async function BookAppointment() {
-  return <DoctorsView />;
+  await requireSession();
+  
+  return <AppointmentFlow/>
 }

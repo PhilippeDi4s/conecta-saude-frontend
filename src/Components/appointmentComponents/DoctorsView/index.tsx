@@ -9,7 +9,12 @@ import { SPECIALTIES, Specialty } from "@/src/constants/specialties";
 import { getDoctorsAction } from "@/src/app/actions/getDoctorsAction";
 import { Section } from "../../Section";
 
-export function DoctorsView() {
+interface DoctorsViewProps {
+  onSelect: (medico: Medico) => void;
+  selectedId: number | null;
+}
+
+export function DoctorsView({ onSelect, selectedId }: DoctorsViewProps) {
   const [selectedSpecialty, setSelectedSpecialty] =
     useState<Specialty>("Todos");
   const [doctors, setDoctors] = useState<Medico[]>([]);
@@ -34,7 +39,11 @@ export function DoctorsView() {
         specialties={SPECIALTIES}
         onSpecialtyChange={setSelectedSpecialty}
       />
-      <DoctorList doctors={doctors} />
+      <DoctorList
+        doctors={doctors}
+        onSelect={onSelect}
+        selectedId={selectedId}
+      />
     </Section>
   );
 }
