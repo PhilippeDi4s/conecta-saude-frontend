@@ -5,14 +5,15 @@ import {
   EyeIcon,
   LucideIcon,
 } from "lucide-react";
-import { ComponentProps, forwardRef, useState } from "react";
+import { forwardRef, InputHTMLAttributes, useState } from "react";
 
-interface DefaultInputProps extends Omit<ComponentProps<"input">, "name"> {
+interface DefaultInputProps extends InputHTMLAttributes<HTMLInputElement> {
   icon?: LucideIcon;
   label: string;
   id: string;
   iconClassName?: string;
   error?: string;
+  className?: string;
 }
 
 export const DefaultInput = forwardRef<HTMLInputElement, DefaultInputProps>(
@@ -51,7 +52,7 @@ export const DefaultInput = forwardRef<HTMLInputElement, DefaultInputProps>(
           )}
           {error && (
             <span className={styles.error}>
-              <CircleAlertIcon/> {error}
+              <CircleAlertIcon /> {error}
             </span>
           )}
         </div>

@@ -6,7 +6,7 @@ export function BottomBar() {
   const selectedLinkStyles = "text-(--blue-500) font-bold"; 
 
   return (
-    <nav className="flex justify-between items-center bg-(--blue-800) text-white/80 p-2 relative">
+    <nav className="flex justify-between items-center bg-(--blue-800) text-white/80 p-2 fixed bottom-0 w-full">
       <Link href="#" className={linkStyles}>
         <UserIcon />
         Perfil
@@ -20,7 +20,7 @@ export function BottomBar() {
           items-center
           absolute
           left-1/2
-          translate-x-[-56%]
+          translate-x-[-50%]
           -top-5
         "
       >

@@ -33,7 +33,6 @@ export function DoctorCard({ doctor, onSelect, isSelected }: DoctorCardProps) {
         "gap-3",
         "text-left",
         "cursor-pointer",
-        "hover:brightness-20",
         "transition-all",
         "bg-[radial-gradient(circle,rgba(197,222,222,1)_100%,rgba(247,247,247,1)_0%)]",
         isSelected ? "outline-4 outline-teal-600" : "outline-none",

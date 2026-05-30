@@ -4,10 +4,11 @@ import { useState } from "react";
 import { Medico } from "@/src/models/medico";
 import { DoctorsView } from "../DoctorsView";
 import { CalendarGrid } from "../CalendarGrid";
+import { AppointmentTimeForm } from "../AppointmentTimeForm";
 
 export function AppointmentFlow() {
   const [doctor, setDoctor] = useState<Medico | null>(null);
-  const [day, setDay] = useState<string | null>(null);
+  const [date, setDate] = useState<string | null>(null);
   const [time, setTime] = useState<string | null>(null);
 
   return (
@@ -15,7 +16,7 @@ export function AppointmentFlow() {
       <DoctorsView
         onSelect={(d) => {
           setDoctor(d);
-          setDay(null);
+          setDate(null);
           setTime(null);
         }}
         selectedId={doctor?.id ?? null}
@@ -24,11 +25,15 @@ export function AppointmentFlow() {
       {doctor && (
         <CalendarGrid
           onSelect={(d) => {
-            setDay(d);
+            setDate(d);
             setTime(null);
           }}
           disponibilidades={doctor.disponibilidades}
         />
+      )}
+
+      {doctor && date && (
+        <AppointmentTimeForm date={date} doctor={doctor}/>
       )}
     </>
   );

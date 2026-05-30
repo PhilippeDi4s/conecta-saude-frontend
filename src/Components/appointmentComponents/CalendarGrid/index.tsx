@@ -8,19 +8,9 @@ import { generateDayOfTheMonth } from "@/src/utils/generateDayOfTheMonth";
 import { Section } from "../../Section";
 import clsx from "clsx";
 import { Disponibilidade } from "@/src/models/disponibilidade";
+import { weekDaysMap } from "@/src/utils/weekDaysMap";
 
 const months = getMonths();
-
-// Mapeia o número do getDay() para o nome que vem da API
-const diaSemanaMap: Record<number, string> = {
-  0: "DOMINGO",
-  1: "SEGUNDA",
-  2: "TERCA",
-  3: "QUARTA",
-  4: "QUINTA",
-  5: "SEXTA",
-  6: "SABADO",
-};
 
 interface CalendarGridProps {
   disponibilidades: Disponibilidade[];
@@ -61,7 +51,7 @@ export function CalendarGrid({
   function isDayBtnDisabled(calendarDay: number): boolean {
     // Bloqueia dias que o médico não atende
     const date = new Date(selectedYear, selectedMonth, calendarDay);
-    const diaSemana = diaSemanaMap[date.getDay()];
+    const diaSemana = weekDaysMap[date.getDay()];
     if (!diasDisponiveis.has(diaSemana)) return true;
 
     // Bloqueia dias passados
