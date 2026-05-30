@@ -19,6 +19,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { cadUserAction } from "@/src/app/actions/cadUserAction";
 import { showMessage } from "@/src/adapters";
 import { Section } from "../Section";
+import { DefaultBtn } from "../DefaultBtn";
 
 export function CadUserForm() {
   const {
@@ -36,7 +37,7 @@ export function CadUserForm() {
 
     if (!result.success) {
       showMessage.error(result.message);
-      console.log(result.errors)
+      console.log(result.errors);
       return;
     }
 
@@ -118,26 +119,9 @@ export function CadUserForm() {
           placeholder="Repita sua senha"
           error={errors.confirmPassword?.message}
         />
-        <button
-          type="submit"
-          className={clsx(
-            "cursor-pointer",
-            "py-4",
-            "px-6",
-            "flex",
-            "items-center",
-            "justify-center",
-            "gap-2",
-            "rounded-2xl",
-            "font-bold",
-            "text-white",
-            "bg-(--blue-800)",
-            "disabled:brightness-50",
-          )}
-          disabled={isSubmitting}
-        >
+        <DefaultBtn type="submit" disabled={isSubmitting}>
           {isSubmitting ? "Cadastrando" : "Cadastrar"}
-        </button>
+        </DefaultBtn>
       </form>
     </Section>
   );

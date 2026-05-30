@@ -3,6 +3,10 @@ import { DefaultInput } from "../../DefaultInput";
 import { Section } from "../../Section";
 import { weekDaysMap } from "@/src/utils/weekDaysMap";
 import { getAvailableHours } from "@/src/utils/getAvailableHours";
+import stylesForm from "../../../styles/form.module.css";
+import { CalendarIcon, ClockIcon, CrossIcon, UserIcon } from "lucide-react";
+import { SelectInput } from "../../SelectInput";
+import { DefaultBtn } from "../../DefaultBtn";
 
 interface AppointmentTimeFormProps {
   doctor: Medico;
@@ -35,33 +39,49 @@ export function AppointmentTimeForm({
     onSubmit(`${date}T${time}:00`);
   }
 
+  const dateArr = date.split("-");
+  const formatedDate = `${dateArr[2]}/${dateArr[1]}/${dateArr[0]}`;
+
   return (
     <Section>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className={stylesForm.container}>
         <DefaultInput
-          id="medico"
-          label="Nome do Médico"
+          id="odctor"
+          name="odctor"
+          label="Profissional"
           value={doctor.nome}
+          icon={UserIcon}
           readOnly
         />
+
         <DefaultInput
-          id="especialidade"
+          id="especialty"
+          name="especialty"
           label="Especialidade"
           value={doctor.especialidade}
+          icon={CrossIcon}
           readOnly
         />
-        <DefaultInput id="dia" label="Dia" value={date} readOnly />
 
-        <select name="horario" required>
-          <option value="">Selecione um horário</option>
+        <DefaultInput
+          id="day"
+          name="day"
+          label="Dia"
+          value={formatedDate}
+          icon={CalendarIcon}
+          readOnly
+        />
+
+        <SelectInput name="time" icon={ClockIcon} required>
+          <option value="">Selecione um horário </option>
           {schedules.map((h) => (
             <option key={h} value={h}>
               {h}
             </option>
           ))}
-        </select>
+        </SelectInput>
 
-        <button type="submit">Confirmar Agendamento</button>
+        <DefaultBtn type="submit">Confirmar Consulta</DefaultBtn>
       </form>
     </Section>
   );

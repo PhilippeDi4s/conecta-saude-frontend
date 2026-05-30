@@ -45,7 +45,7 @@ export const DefaultInput = forwardRef<HTMLInputElement, DefaultInputProps>(
             <button
               type="button"
               className="cursor-pointer absolute top-[1.2rem] right-3 text-[1px]"
-              onClick={() => setShowPassword((prev) => !prev)}
+              onClick= {() => setShowPassword((prev) => !prev)}
             >
               {showPassword ? <EyeIcon /> : <EyeClosedIcon />}
             </button>
